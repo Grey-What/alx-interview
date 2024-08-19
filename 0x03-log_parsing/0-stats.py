@@ -1,42 +1,42 @@
 #!/usr/bin/python3
 """parses a HTTP request log file"""
+
 import sys
 
+status_codes = {'200': 0, '301': 0, '400': 0, '401': 0,
+                '403': 0, '404': 0, '405': 0, '500': 0}
 
-status_codes = {"200": 0, "301": 0, "400": 0, "401": 0, "403": 0,
-                "404": 0, "405": 0, "500": 0}
-size = 0
-counter = 0
+
+total_size = 0
+count = 0
 
 try:
     for line in sys.stdin:
-        l_list = line.split(" ")
+        lines_list = line.split(" ")
 
-        if len(l_list) > 4:
-            try:
-                status_code = l_list[-2]
-                file_size = int(l_list[-1])
+        if len(lines_list) > 4:
+            status_code = lines_list[-2]
+            file_size = int(lines_list[-1])
 
-                if status_code in status_codes.keys():
-                    status_codes[status_code] += 1
+            if status_code in status_codes:
+                status_codes[status_code] += 1
 
-                size += file_size
-                counter += 1
-            except (IndexError, ValueError) as e:
-                continue
+            total_size += file_size
+            count += 1
 
-    if counter == 10:
-        print("File size: {}".format(size))
-        for k, v in sorted(status_codes.items()):
-            if v != 0:
-                print("{}: {}".format(k, v))
-        counter = 0
+        if count == 10:
+            count = 0
+            print("File size: {}".format(total_size))
 
-except Exception as err:
+            for k, v in sorted(status_codes.items()):
+                if v != 0:
+                    print("{}: {}".format(k, v))
+
+except Exception as e:
     pass
 
 finally:
-    print("File size: {}".format(size))
+    print("File size: {}".format(total_size))
     for k, v in sorted(status_codes.items()):
         if v != 0:
             print("{}: {}".format(k, v))
