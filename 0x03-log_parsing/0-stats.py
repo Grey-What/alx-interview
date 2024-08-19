@@ -16,12 +16,12 @@ try:
 
         if len(lines_list) > 4:
             status_code = lines_list[-2]
-            size = int(lines_list[-1])
+            file_size = int(lines_list[-1])
 
-            if status_code in status_codes:
+            if status_code in status_codes.keys():
                 status_codes[status_code] += 1
 
-            total_size += size
+            total_size += file_size
             count += 1
 
         if count == 10:
@@ -32,7 +32,7 @@ try:
                 if v != 0:
                     print("{}: {}".format(k, v))
 
-except KeyboardInterrupt:
+except Exception as e:
     pass
 
 finally:
