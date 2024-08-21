@@ -11,32 +11,30 @@ def validUTF8(data):
 
     Args: data (list): a list of integers
     """
-    continue_bytes = 0
+    num_bytes = 0
 
-    # bit pattern
-    UTF8_BIT_1 = 1 << 7
-    UTF8_BIT_2 = 1 << 6
+    mask1 = 1 << 7
+    mask2 = 1 << 6
 
     for byte in data:
-        one_mask = 1 << 7
+        byte = byte & 0xFF
 
-        if continue_bytes == 0:
+        if num_bytes == 0:
+            mask = 1 << 7
+            while mask & byte:
+                num_bytes += 1
+                mask = mask >> 1
 
-            while one_mask & byte:
-                continue_bytes += 1
-                one_mask = one_mask >> 1
-
-            if continue_bytes == 0:
+            if num_bytes == 0:
                 continue
 
-            if continue_bytes == 1 or continue_bytes > 4:
+            if num_bytes == 1 or num_bytes > 4:
                 return False
+
         else:
-            if not (byte & UTF8_BIT_1 and not (byte & UTF8_BIT_2)):
+            if not (byte & mask1 and not (byte & mask2)):
                 return False
 
-            continue_bytes -= 1
+        num_bytes -= 1
 
-    if continue_bytes != 0:
-        return False
-    return True
+    return num_bytes == 0
