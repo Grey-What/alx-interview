@@ -12,7 +12,8 @@ def generate_solutions(row, column):
         column (int): The number of columns on the chessboard.
 
     Returns:
-        list: A list of all possible solutions, where each solution is a list of column indices for each queen.
+        list: A list of all possible solutions,
+            where each solution is a list of column indices for each queen.
     """
     solution = [[]]
     for queen in range(row):
@@ -27,10 +28,12 @@ def place_queen(queen, column, prev_solution):
     Parameters:
         queen (int): The row index of the queen.
         column (int): The number of columns on the chessboard.
-        prev_solution (list): A list of lists representing the current state of the board.
+        prev_solution (list):
+          A list of lists representing the current state of the board.
 
     Returns:
-        list: A list of lists representing all possible safe positions for the queen.
+        list: A list of lists representing all
+          possible safe positions for the queen.
     """
     safe_position = []
     for array in prev_solution:
@@ -47,7 +50,8 @@ def is_safe(q, x, array):
     Parameters:
     q (int): The row index of the queen.
     x (int): The column index of the queen.
-    array (list): The current state of the board, represented as a list of column indices.
+    array (list): The current state of the board,
+         represented as a list of column indices.
 
     Returns:
     bool: True if it is safe to place the queen, False otherwise.
@@ -65,7 +69,8 @@ def init():
 
     The function checks if the correct number of arguments is provided,
     if the argument is a digit, and if the number is at least 4.
-    If any of these conditions are not met, it prints an error message and exits.
+    If any of these conditions are not met,
+      it prints an error message and exits.
 
     Returns:
         int: The value of N if all conditions are met.
@@ -86,7 +91,8 @@ def init():
 
 def n_queens():
     """
-    Solves the N queens problem by generating all possible solutions for a given board size.
+    Solves the N queens problem by generating all possible solutions
+      for a given board size.
 
     Parameters:
     None
