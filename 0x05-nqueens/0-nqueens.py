@@ -20,29 +20,25 @@ def is_safe(board, row, col):
 
     return True
 
-def solve_nqueens(board, col):
-    """recursively try to place a queen on each column"""
-    if col >= len(board):
-        print_solution(board)
-        return True
 
-    res = False
+def solve_nqueens(board, col, solutions):
+    """solve n queens problem"""
+    if col >= len(board):
+        solutions.append([[i, row.index(1)] for i, row in enumerate(board)])
+        return
+
     for i in range(len(board)):
         if is_safe(board, i, col):
             board[i][col] = 1
-            res = solve_nqueens(board, col + 1) or res
+            solve_nqueens(board, col + 1, solutions)
             board[i][col] = 0
 
-    return res
 
-def print_solution(board):
-    """print the solution in format"""
-    solution = []
-    for i in range(len(board)):
-        for j in range(len(board)):
-            if board[i][j] == 1:
-                solution.append([i, j])
-    print(solution)
+def print_solutions(solutions):
+    """print solutions"""
+    for solution in sorted(solutions):
+        print(solution)
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -60,5 +56,6 @@ if __name__ == "__main__":
         sys.exit(1)
 
     board = [[0] * N for _ in range(N)]
-    if not solve_nqueens(board, 0):
-        print("No solution exists")
+    solutions = []
+    solve_nqueens(board, 0, solutions)
+    print_solutions(solutions)
