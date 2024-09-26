@@ -1,7 +1,5 @@
- #!/usr/bin/python3
-"""
-contains function island_perimeter
-"""
+#!/usr/bin/python3
+"""contains function island_perimeter"""
 
 
 def island_perimeter(grid):
@@ -20,8 +18,8 @@ def island_perimeter(grid):
         for j in range(0, len(grid[i])):
             if grid[i][j] == 1:
                 perimeter += 4
-                if i > 0 and grid[i - 1][j]: # check cell above
+                if i > 0 and grid[i - 1][j]:  # check cell above
                     perimeter -= 2
-                if j > 0 and grid[i][j - 1]: # check  cell to left
+                if j > 0 and grid[i][j - 1]:  # check  cell to left
                     perimeter -= 2
     return perimeter
